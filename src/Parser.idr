@@ -113,7 +113,7 @@ atom =  summation <|> array2 <|> paren <|> lit <|> var <|> is '(' *> sum <* is '
 --summation = foldl Pow2 <$> between (is '?') (is '?') (sepBy (is ',') atom)
 
 pow = foldl Pow2 <$> atom <*> many (is '^' *> atom)
-
+-- pow - > var ^ var
 div = foldl Div2 <$> pow <*> many (is '/' *> pow)
 
 mul = foldl Mul2 <$> div <*> many (is '*' *> div)
@@ -166,5 +166,6 @@ runTestCases (t::ts) = do
   --testParse2 (concatMap show t) -- Convert the list of MathToken to a String
   putStrLn ""
   runTestCases ts
+
 
 
